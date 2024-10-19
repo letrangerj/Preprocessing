@@ -2,6 +2,8 @@ import os
 import shutil
 from tkinter import filedialog
 
+
+
 #设定源文件夹和的路径并获取所有文件名
 print('please choose your file directory:')
 folder_path=filedialog.askdirectory()
@@ -20,13 +22,13 @@ def renamefile(target_path):
                 os.makedirs(merge_path)
     for i in range(num_of_channels):
         for file in new_files:
-            if file.__contains__(f'ch0{i}.png'):
+            if file.__contains__(f'ch0{i}.tif'):
                 old_path=os.path.join(target_path,file)
                 sub_path=target_path+'/'+f'Channel{i}'
                 if not os.path.exists(sub_path):
                     os.makedirs(sub_path)
                 length=len(os.listdir(sub_path))
-                new_path=os.path.join(target_path+'/'+f'Channel{i}',str(length)+f'ch{i}'+'.png')
+                new_path=os.path.join(target_path+'/'+f'Channel{i}',str(length)+f'ch{i}'+'.tif')
                 os.rename(old_path,new_path)
             else:
                  pass
@@ -35,18 +37,15 @@ print('please input the number of cell types:')
 num_cell_type=int(input())
 #获取细胞种类的数量（或是这组图片想要分的组数）
 for i in range(num_cell_type):
+    #print('please input the name of your cell type:\n(note that this string must be a part of the name of your picture)')
     #获取每组实验的名称，用于将图片分配到对应的路径中
-    cell_type = f'-{i+1}-'
+    cell_type='FRAME'+str(i+1)+'_'
     for file_name in file_names:
-        for j in range(1, 5):            
-            clone_type = cell_type + f'{j}'
-            if file_name.__contains__(clone_type):
-                target_path=folder_path+'/'+clone_type
-                if not os.path.exists(target_path):
-                    os.makedirs(target_path)
-                shutil.copyfile(folder_path+'/'+file_name,target_path+'/'+file_name)
-                renamefile(target_path)
-            else:
-                continue
+        if file_name.__contains__(cell_type):
+            target_path=folder_path+'/'+cell_type
+            if not os.path.exists(target_path):
+                os.makedirs(target_path)
+            shutil.copyfile(folder_path+'/'+file_name,target_path+'/'+file_name)
+            renamefile(target_path)
         else:
             pass
