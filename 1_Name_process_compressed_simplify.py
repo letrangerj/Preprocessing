@@ -39,13 +39,14 @@ num_cell_type=int(input())
 for i in range(num_cell_type):
     #print('please input the name of your cell type:\n(note that this string must be a part of the name of your picture)')
     #获取每组实验的名称，用于将图片分配到对应的路径中
-    cell_type='FRAME'+str(i+1)+'_'
-    for file_name in file_names:
-        if file_name.__contains__(cell_type):
-            target_path=folder_path+'/'+cell_type
-            if not os.path.exists(target_path):
-                os.makedirs(target_path)
-            shutil.copyfile(folder_path+'/'+file_name,target_path+'/'+file_name)
-            renamefile(target_path)
-        else:
-            pass
+    for j in range(4):
+        cell_type='Frame'+str(i+1)+'-'+str(j+1)
+        for file_name in file_names:
+            if file_name.__contains__(cell_type):
+                target_path=folder_path+'/'+cell_type
+                if not os.path.exists(target_path):
+                    os.makedirs(target_path)
+                shutil.copyfile(folder_path+'/'+file_name,target_path+'/'+file_name)
+                renamefile(target_path)
+            else:
+                pass

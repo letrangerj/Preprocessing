@@ -4,6 +4,7 @@
 
 import os
 import shutil
+from tkinter import filedialog
 
 def remove_files_contain_string(src_folder, string):
     dest_folder = src_folder + "/" + string
@@ -14,6 +15,7 @@ def remove_files_contain_string(src_folder, string):
             if string in file and file[-4:] == ".tif":
                 shutil.move(os.path.join(root, file), dest_folder)
                 
-src_folder = "4i_round1_20240330"
-string = "WT"
+print('please choose your file directory:')
+src_folder=filedialog.askdirectory()
+string = "Well2"
 remove_files_contain_string(src_folder, string)
